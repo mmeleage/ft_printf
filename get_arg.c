@@ -6,7 +6,7 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:46:42 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:46:45 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:38:30 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_c(va_list arg)
 {
-	char    *s;
+	char	*s;
 
 	s = (char *)malloc(2);
 	s[0] = (char)va_arg(arg, int);
@@ -24,7 +24,7 @@ char	*get_c(va_list arg)
 
 char	*get_s(t_flag flags, va_list arg)
 {
-	char    *s;
+	char	*s;
 
 	if (!(s = ft_strdup(va_arg(arg, char *))))
 		s = ft_strdup("(null)");
@@ -36,9 +36,9 @@ char	*get_s(t_flag flags, va_list arg)
 
 char	*get_f(t_flag flags, va_list arg)
 {
-	char    *bits;
-	int     exp;
-	char    *s;
+	char	*bits;
+	int		exp;
+	char	*s;
 
 	bits = get_bits_f(va_arg(arg, double));
 	exp = get_exponent_f(bits);
@@ -51,9 +51,9 @@ char	*get_f(t_flag flags, va_list arg)
 
 char	*get_lf(t_flag flags, va_list arg)
 {
-	char    *bits;
-	int     exp;
-	char    *s;
+	char	*bits;
+	int		exp;
+	char	*s;
 
 	bits = get_bits_lf(va_arg(arg, long double));
 	exp = get_exponent_lf(bits);
@@ -66,7 +66,7 @@ char	*get_lf(t_flag flags, va_list arg)
 
 char	*get_arg(t_flag flags, va_list arg)
 {
-	t_func  funcs;
+	t_func	funcs;
 
 	if (flags.conversion == '%')
 		return ("%");

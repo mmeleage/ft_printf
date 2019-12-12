@@ -6,7 +6,7 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:46:01 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:46:01 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:37:48 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*get_bits_lf(long double num)
 {
-	char            *bits;
-	unsigned char   *num_addr;
-	int             i;
+	char			*bits;
+	unsigned char	*num_addr;
+	int				i;
 
 	i = 0;
 	num_addr = (unsigned char *)&num;
@@ -35,9 +35,9 @@ char	*get_bits_lf(long double num)
 
 int		get_exponent_lf(char *bits)
 {
-	int     i;
-	int     exp;
-	int     pow;
+	int		i;
+	int		exp;
+	int		pow;
 
 	exp = 0;
 	i = 15;
@@ -53,10 +53,10 @@ int		get_exponent_lf(char *bits)
 
 char	*get_int_part_lf(int exp, char *bits)
 {
-	char    *int_part;
-	int     i;
-	int     j;
-	char    *pow;
+	char	*int_part;
+	int		i;
+	int		j;
+	char	*pow;
 
 	i = 0;
 	j = 16;
@@ -82,9 +82,9 @@ char	*get_int_part_lf(int exp, char *bits)
 
 char	*get_fract_part_lf(int exp, char *bits)
 {
-	char    *fract_part;
-	char    *pow;
-	int     i;
+	char	*fract_part;
+	char	*pow;
+	int		i;
 
 	pow = ft_strdup("5");
 	fract_part = ft_strdup("0");

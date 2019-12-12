@@ -6,11 +6,11 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:45:22 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:45:23 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:24:42 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 void	initialize_flags(t_flag *flags)
 {

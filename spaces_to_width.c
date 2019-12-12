@@ -6,7 +6,7 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:47:00 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:47:01 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:38:58 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		spaces_to_width_sharp(t_flag flags, char *s, int spaces_to_width)
 
 int		count_spaces_to_width(t_flag flags, int len, char *s)
 {
-	int     spaces_to_width;
+	int		spaces_to_width;
 
 	spaces_to_width = 0;
 	if (flags.width > len)

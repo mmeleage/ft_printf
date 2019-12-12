@@ -6,7 +6,7 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:46:56 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:46:56 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:39:28 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ void	print_arg(t_flag flags, char *s, int *count, int len)
 
 int		print_arg_with_flags(t_flag flags, va_list arg)
 {
-	char    *s;
-	int     count;
-	int     len;
-	int     spaces_to_width;
+	char	*s;
+	int		count;
+	int		len;
+	int		spaces_to_width;
 
 	count = 0;
 	s = get_arg(flags, arg);

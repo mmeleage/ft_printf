@@ -6,17 +6,17 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:34:38 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:24:40 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:33:59 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 char	*get_bits_f(double num)
 {
-	char            *bits;
-	unsigned char   *num_addr;
-	int             i;
+	char			*bits;
+	unsigned char	*num_addr;
+	int				i;
 
 	i = 0;
 	num_addr = (unsigned char *)&num;
@@ -35,9 +35,9 @@ char	*get_bits_f(double num)
 
 int		get_exponent_f(char *bits)
 {
-	int     i;
-	int     exp;
-	int     pow;
+	int		i;
+	int		exp;
+	int		pow;
 
 	exp = 0;
 	i = 11;
@@ -64,7 +64,7 @@ char	*round_digits(char *num, int i, int *flag)
 		{
 			num[i] = num[i] + 1;
 			*flag = 0;
-			break;
+			break ;
 		}
 		i--;
 	}
@@ -73,8 +73,8 @@ char	*round_digits(char *num, int i, int *flag)
 
 char	*complete_with_zeroes(int precision, char *fract_part, int i)
 {
-	char    *new_fract_part;
-	
+	char	*new_fract_part;
+
 	new_fract_part = (char *)malloc(precision + 1);
 	new_fract_part = ft_strcpy(new_fract_part, fract_part);
 	while (precision - i)
@@ -85,9 +85,9 @@ char	*complete_with_zeroes(int precision, char *fract_part, int i)
 
 char	*round_num(char *int_part, char *fract_part, int precision)
 {
-	int     i;
-	int     flag;
-	char    *new_fract_part;
+	int		i;
+	int		flag;
+	char	*new_fract_part;
 
 	i = ft_strlen(fract_part);
 	if (precision >= i)

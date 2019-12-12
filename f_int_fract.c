@@ -6,16 +6,16 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:45:08 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:45:09 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:25:51 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 char	*int_part_f(int exp, char *pow, char *int_part, char *bits)
 {
-	int     i;
-	int     j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 12;
@@ -37,8 +37,8 @@ char	*int_part_f(int exp, char *pow, char *int_part, char *bits)
 
 char	*get_int_part_f(int exp, char *bits)
 {
-	char    *int_part;
-	char    *pow;
+	char	*int_part;
+	char	*pow;
 
 	pow = ft_strdup("1");
 	int_part = ft_strdup("0");
@@ -51,11 +51,11 @@ char	*get_int_part_f(int exp, char *bits)
 
 char	*fill_zeroes(char *short_num, char *long_num)
 {
-	int     len1;
-	int     len2;
-	char    *long_short;
-	int     i;
-	int     j;
+	int		len1;
+	int		len2;
+	char	*long_short;
+	int		i;
+	int		j;
 
 	len1 = ft_strlen(short_num);
 	len2 = ft_strlen(long_num);
@@ -63,7 +63,7 @@ char	*fill_zeroes(char *short_num, char *long_num)
 	j = 0;
 	long_short = (char *)malloc(len2 + 1);
 	while (short_num[i])
-	{        
+	{
 		long_short[i] = short_num[i];
 		i++;
 	}
@@ -86,9 +86,9 @@ char	*fract_part_f(char *bits, int i, char *fract_part, char *pow)
 
 char	*get_fract_part_f(int exp, char *bits)
 {
-	char    *fract_part;
-	char    *pow;
-	int     i;
+	char	*fract_part;
+	char	*pow;
+	int		i;
 
 	pow = ft_strdup("5");
 	fract_part = ft_strdup("0");

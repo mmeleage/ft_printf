@@ -6,11 +6,11 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:45:14 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:45:15 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:23:54 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 char	*get_product(int i, int j, char *num, char *res)
 {
@@ -31,10 +31,10 @@ char	*get_product(int i, int j, char *num, char *res)
 
 char	*multiply(char *num)
 {
-	char    *res;
-	int     i;
-	int     j;
-	int     len;
+	char	*res;
+	int		i;
+	int		j;
+	int		len;
 
 	len = ft_strlen(num);
 	res = (char *)malloc(len + 1 + 1);
@@ -52,11 +52,11 @@ char	*multiply(char *num)
 
 char	*divide(char *num)
 {
-	char    *res;
-	int     i;
-	int     j;
-	int     mod;
-	int     len;
+	char	*res;
+	int		i;
+	int		j;
+	int		mod;
+	int		len;
 
 	len = ft_strlen(num);
 	res = (char *)malloc(len + 1 + 1);

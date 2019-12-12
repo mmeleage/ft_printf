@@ -6,11 +6,11 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:46:30 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:46:30 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:40:00 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 t_flag	ft_printf_precision(t_flag flags, va_list arg, char *format, int *j)
 {
@@ -69,7 +69,7 @@ t_flag	ft_printf_flags(char *format, int *j, t_flag flags, va_list arg)
 		else if (is_conversion(format[*j]))
 		{
 			flags.conversion = format[(*j)++];
-			break;
+			break ;
 		}
 	}
 	return (flags);
@@ -77,8 +77,8 @@ t_flag	ft_printf_flags(char *format, int *j, t_flag flags, va_list arg)
 
 int		ft_printf_count(char *format, t_flag flags, va_list arg, int count)
 {
-	int         i;
-	int         j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (format[i])
@@ -90,7 +90,7 @@ int		ft_printf_count(char *format, t_flag flags, va_list arg, int count)
 			flags = ft_printf_flags(format, &j, flags, arg);
 			count += print_arg_with_flags(flags, arg);
 			if (!format[j])
-				break;
+				break ;
 			else
 				i = j;
 		}
@@ -105,9 +105,9 @@ int		ft_printf_count(char *format, t_flag flags, va_list arg, int count)
 
 int		ft_printf(const char *restrict format, ...)
 {
-	va_list     arg;
-	t_flag      flags;
-	int         count;
+	va_list	arg;
+	t_flag	flags;
+	int		count;
 
 	count = 0;
 	va_start(arg, format);

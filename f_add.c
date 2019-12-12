@@ -6,11 +6,11 @@
 /*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:44:59 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/12/12 18:45:01 by mmeleage         ###   ########.fr       */
+/*   Updated: 2019/12/12 19:24:31 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
 void	get_digits(char *res1, char *res2, char num1, char num2)
 {
@@ -25,8 +25,8 @@ void	get_digits(char *res1, char *res2, char num1, char num2)
 
 char	*get_sum(char *num1, char *num2, char *res, int k)
 {
-	int     i;
-	int     j;
+	int		i;
+	int		j;
 
 	i = ft_strlen(num1) - 1;
 	j = ft_strlen(num2) - 1;
@@ -47,11 +47,11 @@ char	*get_sum(char *num1, char *num2, char *res, int k)
 
 char	*add(char *num1, char *num2, int flag)
 {
-	int     k;
-	int     len;
-	int     len1;
-	int     len2;
-	char    *res;
+	int		k;
+	int		len;
+	int		len1;
+	int		len2;
+	char	*res;
 
 	len1 = ft_strlen(num1);
 	len2 = ft_strlen(num2);
