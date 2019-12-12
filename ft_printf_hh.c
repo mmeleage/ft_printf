@@ -1,6 +1,6 @@
 # include "ft_printf.h"
 
-int     count_digits_hh(char n)
+int		count_digits_hh(char n)
 {
 	int		len;
 
@@ -15,7 +15,7 @@ int     count_digits_hh(char n)
 	return (len);
 }
 
-char		*ft_itoa_hh(char n)
+char	*ft_itoa_hh(char n)
 {
 	char	*str;
 	int		i;

@@ -1,6 +1,6 @@
 # include "ft_printf.h"
 
-int     count_digits_u(unsigned int n, int base)
+int		count_digits_u(unsigned int n, int base)
 {
 	int		len;
 
@@ -15,7 +15,7 @@ int     count_digits_u(unsigned int n, int base)
 	return (len);
 }
 
-char		*ft_itoa_u(unsigned int n, int base, char x)
+char	*ft_itoa_u(unsigned int n, int base, char x)
 {
 	char	*str;
 	int		i;
@@ -30,13 +30,13 @@ char		*ft_itoa_u(unsigned int n, int base, char x)
 	while (n)
 	{
 		if (n % base < 10)
-            str[i] = n % base + '0';
-        else if (x == 'x')
-            str[i] = 'a' + n % base - 10;
-        else
-            str[i] = 'A' + n % base - 10;
-        i--;
-        n /= base;
+			str[i] = n % base + '0';
+		else if (x == 'x')
+			str[i] = 'a' + n % base - 10;
+		else
+			str[i] = 'A' + n % base - 10;
+		i--;
+		n /= base;
 	}
 	return (str);
 }

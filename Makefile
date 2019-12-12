@@ -14,6 +14,11 @@ SRCS = ft_printf_f.c \
 	ft_printf_oux.c \
 	ft_printf_p.c \
 	ft_printf.c \
+	f_add.c \
+	f_int_fract.c \
+	f_multiply_divide.c \
+	fill_flags_sizes.c \
+	fill_num_funcs.c \
 	libft/ft_memset.c \
 	libft/ft_bzero.c \
 	libft/ft_memcpy.c \

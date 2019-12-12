@@ -1,6 +1,6 @@
 # include "ft_printf.h"
 
-int     count_digits_ll(long long int n)
+int		count_digits_ll(long long int n)
 {
 	int		len;
 
@@ -15,7 +15,7 @@ int     count_digits_ll(long long int n)
 	return (len);
 }
 
-char		*ft_itoa_ll(long long int n)
+char	*ft_itoa_ll(long long int n)
 {
 	char	*str;
 	int		i;

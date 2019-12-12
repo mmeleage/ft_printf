@@ -5,31 +5,30 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-# include <stdio.h>
-# pragma GCC diagnostic ignored "-Wformat"
+//# pragma GCC diagnostic ignored "-Wformat"
 
 typedef struct  s_flag
 {
-    int         minus;
-    int         plus;
-    int         zero;
-    int         space;
-    int         sharp;
-    int         width;
-    int         precision;
-    int         h;
-    int         l;
-    int         lf;
-    char        conversion;
+	int         minus;
+	int         plus;
+	int         zero;
+	int         space;
+	int         sharp;
+	int         width;
+	int         precision;
+	int         h;
+	int         l;
+	int         lf;
+	char        conversion;
 }               t_flag;
 
 typedef struct  s_func
 {
-    char        *hhs;
-    char        *hs;
-    char        *lls;
-    char        *ls;
-    char        *s;
+	char        *hhs;
+	char        *hs;
+	char        *lls;
+	char        *ls;
+	char        *s;
 }               t_func;
 
 char            *ft_ptoa(void *p);
@@ -95,10 +94,24 @@ void            fill_num_funcs_u(t_func *funcs, t_flag flags, va_list arg);
 void            fill_num_funcs_o(t_func *funcs, t_flag flags, va_list arg);
 void            fill_num_funcs_x(t_func *funcs, t_flag flags, va_list arg);
 char            *get_num(t_flag flags, t_func funcs);
+char            *get_c(va_list arg);
+char            *get_s(t_flag flags, va_list arg);
+char            *get_f(t_flag flags, va_list arg);
+char            *get_lf(t_flag flags, va_list arg);
 char            *get_arg(t_flag flags, va_list arg);
 int             spaces_to_width_sharp(t_flag flags, char *s, int spaces_to_width);
 int             count_spaces_to_width(t_flag flags, int len, char *s);
+void			print_spaces_left(t_flag flags, int spaces_to_width);
+void			print_plus_space(t_flag flags, char **s, int *count, int *len);
+void			print_p_sharp(t_flag flags, int *count, int len, char *s);
+void			print_zero_precision(t_flag flags, int len, int *count);
+void			print_arg(t_flag flags, char *s, int *count, int len);
+void			print_spaces_right(t_flag flags, int spaces_to_width);
 int             print_arg_with_flags(t_flag flags, va_list arg);
+t_flag			ft_printf_precision(t_flag flags, va_list arg, char *format, int *j);
+t_flag			ft_printf_width(t_flag flags, va_list arg, int *j);
+t_flag			ft_printf_flags(char *format, int *j, t_flag flags, va_list arg);
+int				ft_printf_count(char *format, t_flag flags, va_list arg, int count);
 int             ft_printf(const char *restrict format, ...);
 
 # endif
