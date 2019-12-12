@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_f.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksusha <ksusha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:34:38 by mmeleage          #+#    #+#             */
-/*   Updated: 2019/11/28 22:03:38 by ksusha           ###   ########.fr       */
+/*   Updated: 2019/12/12 13:56:10 by mmeleage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ char    *get_sum(char *num1, char *num2, char *res, int k)
 
 char    *add(char *num1, char *num2, int flag)
 {
-    //int     i;
-    //int     j;
     int     k;
     int     len;
     int     len1;
@@ -96,8 +94,6 @@ char    *add(char *num1, char *num2, int flag)
 
     len1 = ft_strlen(num1);
     len2 = ft_strlen(num2);
-    //i = len1 - 1;
-    //j = len2 - 1;
     len = (len1 > len2) ? len1 : len2;
     res = (char *)malloc(len + 1 + 1);
     k = 0;
@@ -106,18 +102,6 @@ char    *add(char *num1, char *num2, int flag)
     res[k] = '\0';
     k = len;
     res = get_sum(num1, num2, res, k);
-    /*while (i >= 0 || j >= 0)
-    {
-        if (i < 0)
-            get_digits(&res[k], &res[k - 1], '0', num2[j]);
-        else if (j < 0)
-            get_digits(&res[k], &res[k - 1], num1[i], '0');
-        else
-            get_digits(&res[k], &res[k - 1], num1[i], num2[j]);
-        i--;
-        j--;
-        k--;
-    }*/
     if (flag)
         while (*res == '0')
             res++;
@@ -158,18 +142,6 @@ char    *multiply(char *num)
     i = len - 1;
     j = len;
     res = get_product(i, j, num, res);
-    /*while (i >= 0)
-    {
-        if ((res[j] - '0' + (num[i] - '0') * 2) > 9)
-        {
-            res[j] = res[j] + ((num[i] - '0') * 2) % 10;
-            res[j - 1] = res[j - 1] + ((num[i] - '0') * 2) / 10;
-        }
-        else
-            res[j] = res[j] + (num[i] - '0') * 2;
-        i--;
-        j--;
-    }*/
     res[len + 1] = '\0';
     while (*res == '0')
         res++;
@@ -201,33 +173,38 @@ char    *divide(char *num)
     return (res);
 }
 
-char    *get_int_part_f(int exp, char *bits)
+char    *int_part_f(int exp, char *pow, char *int_part, char *bits)
 {
-    char    *int_part;
     int     i;
     int     j;
-    char    *pow;
 
     i = 0;
     j = 12;
+    while (i++ < exp)
+        pow = multiply(pow);
+    int_part = add(int_part, pow, 1);
+    while (exp && bits[j])
+    {
+        i = 0;
+        pow = ft_strcpy(pow, "1");
+        while (i++ < exp - 1)
+            pow = multiply(pow);
+        if (bits[j++] == '1')
+            int_part = add(int_part, pow, 1);
+        exp--;
+    }
+    return (int_part);
+}
+
+char    *get_int_part_f(int exp, char *bits)
+{
+    char    *int_part;
+    char    *pow;
+
     pow = ft_strdup("1");
     int_part = ft_strdup("0");
     if (exp > 0)
-    {
-        while (i++ < exp)
-            pow = multiply(pow);
-        int_part = add(int_part, pow, 1);
-        while (exp && bits[j])
-        {
-            i = 0;
-            pow = ft_strcpy(pow, "1");
-            while (i++ < exp - 1)
-                pow = multiply(pow);
-            if (bits[j++] == '1')
-                int_part = add(int_part, pow, 1);
-            exp--;
-        }
-    }
+        int_part = int_part_f(exp, pow, int_part, bits);
     else if (exp == 0)
         int_part = ft_strcpy(int_part, "1");
     return (int_part);
@@ -257,6 +234,17 @@ char    *fill_zeroes(char *short_num, char *long_num)
     return (long_short);
 }
 
+char    *fract_part_f(char *bits, int i, char *fract_part, char *pow)
+{
+    while (bits[i])
+    {
+        if (bits[i++] == '1')
+            fract_part = add(fill_zeroes(fract_part, pow), pow, 0);
+        pow = divide(pow);
+    }
+    return (fract_part);
+}
+
 char    *get_fract_part_f(int exp, char *bits)
 {
     char    *fract_part;
@@ -277,12 +265,7 @@ char    *get_fract_part_f(int exp, char *bits)
         }
         else
             i = 12 + exp;
-        while (bits[i])
-        {
-            if (bits[i++] == '1')
-                fract_part = add(fill_zeroes(fract_part, pow), pow, 0);
-            pow = divide(pow);
-        }
+        fract_part = fract_part_f(bits, i, fract_part, pow);
     }
     return (fract_part);
 }
@@ -330,12 +313,6 @@ char    *round_num(char *int_part, char *fract_part, int precision)
     {
         new_fract_part = complete_with_zeroes(precision, fract_part, i);
         return (ft_strjoin(int_part, ft_strjoin(".", new_fract_part)));
-        /*new_fract_part = (char *)malloc(precision + 1);
-        new_fract_part = ft_strcpy(new_fract_part, fract_part);
-        while (precision - i)
-            new_fract_part[i++] = '0';
-        new_fract_part[i] = '\0';
-        return (ft_strjoin(int_part, ft_strjoin(".", new_fract_part)));*/
     }
     if (fract_part[precision] >= '5')
     {

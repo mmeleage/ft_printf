@@ -6,7 +6,6 @@
 # include "libft/libft.h"
 
 # include <stdio.h>
-# include <float.h>
 # pragma GCC diagnostic ignored "-Wformat"
 
 typedef struct  s_flag
@@ -70,8 +69,10 @@ char            *add(char *num1, char *num2, int flag);
 char            *get_product(int i, int j, char *num, char *res);
 char            *multiply(char *num);
 char            *divide(char *num);
+char            *int_part_f(int exp, char *pow, char *int_part, char *bits);
 char            *get_int_part_f(int exp, char *bits);
 char            *fill_zeroes(char *short_num, char *long_num);
+char            *fract_part_f(char *bits, int i, char *fract_part, char *pow);
 char            *get_fract_part_f(int exp, char *bits);
 char            *round_digits(char *num, int i, int *flag);
 char            *complete_with_zeroes(int precision, char *fract_part, int i);
@@ -87,11 +88,15 @@ int             is_flag(char c);
 int             is_size(char c);
 void            initialize_flags(t_flag *flags);
 t_flag          fill_flags(char c, int *j, t_flag flags);
-t_flag          fill_sizes(char *format, int *j, t_flag flags);
-void            fill_num_funcs(t_func *funcs, t_flag flags, va_list arg);
-void            fill_oxnum_funcs(t_func *funcs, t_flag flags, va_list arg);
+t_flag          fill_sizes_h(char *format, int *j, t_flag flags);
+t_flag          fill_sizes_l(char *format, int *j, t_flag flags);
+void            fill_num_funcs_d(t_func *funcs, t_flag flags, va_list arg);
+void            fill_num_funcs_u(t_func *funcs, t_flag flags, va_list arg);
+void            fill_num_funcs_o(t_func *funcs, t_flag flags, va_list arg);
+void            fill_num_funcs_x(t_func *funcs, t_flag flags, va_list arg);
 char            *get_num(t_flag flags, t_func funcs);
 char            *get_arg(t_flag flags, va_list arg);
+int             spaces_to_width_sharp(t_flag flags, char *s, int spaces_to_width);
 int             count_spaces_to_width(t_flag flags, int len, char *s);
 int             print_arg_with_flags(t_flag flags, va_list arg);
 int             ft_printf(const char *restrict format, ...);

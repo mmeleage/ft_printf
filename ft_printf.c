@@ -49,7 +49,7 @@ t_flag    fill_flags(char c, int *j, t_flag flags)
     return (flags);
 }
 
-t_flag  fill_sizes(char *format, int *j, t_flag flags)
+t_flag  fill_sizes_h(char *format, int *j, t_flag flags)
 {
     if (format[*j] == 'h' && format[*j + 1] != 'h')
     {
@@ -57,13 +57,19 @@ t_flag  fill_sizes(char *format, int *j, t_flag flags)
             flags.h = 1;
         (*j) += 1;
     }
-    else if (format[*j] == 'h' && format[*j + 1] == 'h')
+    if (format[*j] == 'h' && format[*j + 1] == 'h')
     {
         if (!flags.l)
             flags.h = 2;
         (*j) += 2;
     }
-    else if (format[*j] == 'l' && format[*j + 1] != 'l')
+    return (flags);
+}
+
+t_flag  fill_sizes_l(char *format, int *j, t_flag flags)
+{
+    flags = fill_sizes_h(format, j, flags);
+    if (format[*j] == 'l' && format[*j + 1] != 'l')
     {
         if (format[*j + 1] != 'L')
         {
@@ -72,25 +78,24 @@ t_flag  fill_sizes(char *format, int *j, t_flag flags)
         }
         (*j) += 1;
     }
-    else if (format[*j] == 'l' && format[*j + 1] == 'l')
+    if (format[*j] == 'l' && format[*j + 1] == 'l')
     {
         flags.l = 2;
         flags.h = 0;
         (*j) += 2;
     }
-    else if (format[*j] == 'L' && ft_strchr("fF", format[*j + 1]))
+    if (format[*j] == 'L')
     {
-        flags.lf = 1;
+        if (ft_strchr("fF", format[*j + 1]))
+            flags.lf = 1;
         (*j) += 1;
     }
-    else
-        (*j) += 1;
     return (flags);
 }
 
-void    fill_num_funcs(t_func *funcs, t_flag flags, va_list arg)
+void    fill_num_funcs_d(t_func *funcs, t_flag flags, va_list arg)
 {
-    if (flags.conversion == 'd' || flags.conversion == 'D' || flags.conversion == 'i')
+    if (ft_strchr("dDi", flags.conversion))
     {
         if (flags.h == 2)
             (*funcs).hhs = ft_itoa_hh((char)va_arg(arg, int));
@@ -103,7 +108,11 @@ void    fill_num_funcs(t_func *funcs, t_flag flags, va_list arg)
         if (!flags.h && !flags.l)
             (*funcs).s = ft_itoa(va_arg(arg, int));
     }
-    if (flags.conversion == 'u' || flags.conversion == 'U')
+}
+
+void    fill_num_funcs_u(t_func *funcs, t_flag flags, va_list arg)
+{
+    if (ft_strchr("uU", flags.conversion))
     {
         if (flags.h == 2)
             (*funcs).hhs = ft_itoa_hhu((unsigned char)va_arg(arg, unsigned int), 10, flags.conversion);
@@ -118,9 +127,9 @@ void    fill_num_funcs(t_func *funcs, t_flag flags, va_list arg)
     }
 }
 
-void    fill_oxnum_funcs(t_func *funcs, t_flag flags, va_list arg)
+void    fill_num_funcs_o(t_func *funcs, t_flag flags, va_list arg)
 {
-    if (flags.conversion == 'o' || flags.conversion == 'O')
+    if (ft_strchr("oO", flags.conversion))
     {
         if (flags.h == 2)
             (*funcs).hhs = ft_itoa_hhu((unsigned char)va_arg(arg, unsigned int), 8, flags.conversion);
@@ -133,7 +142,14 @@ void    fill_oxnum_funcs(t_func *funcs, t_flag flags, va_list arg)
         if (!flags.h && !flags.l)
             (*funcs).s = ft_itoa_u(va_arg(arg, unsigned int), 8, flags.conversion);
     }
-    if (flags.conversion == 'x' || flags.conversion == 'X')
+}
+
+void    fill_num_funcs_x(t_func *funcs, t_flag flags, va_list arg)
+{
+    fill_num_funcs_d(funcs, flags, arg);
+    fill_num_funcs_u(funcs, flags, arg);
+    fill_num_funcs_o(funcs, flags, arg);
+    if (ft_strchr("xX", flags.conversion))
     {
         if (flags.h == 2)
             (*funcs).hhs = ft_itoa_hhu((unsigned char)va_arg(arg, unsigned int), 16, flags.conversion);
@@ -190,8 +206,7 @@ char    *get_arg(t_flag flags, va_list arg)
         return (ft_ptoa(va_arg(arg, void *)));
     if (ft_strchr("dDiuUoOxX", flags.conversion))
     {
-        fill_num_funcs(&funcs, flags, arg);
-        fill_oxnum_funcs(&funcs, flags, arg);
+        fill_num_funcs_x(&funcs, flags, arg);
         return (get_num(flags, funcs));
     }
     if (ft_strchr("fF", flags.conversion))
@@ -220,6 +235,19 @@ char    *get_arg(t_flag flags, va_list arg)
     return ("");
 }
 
+int     spaces_to_width_sharp(t_flag flags, char *s, int spaces_to_width)
+{
+    if (flags.sharp)
+    {
+        if ((s[0] != '0' && ft_strchr("oO", flags.conversion)) ||\
+        ft_strchr("fF", flags.conversion))
+            spaces_to_width--;
+        if (s[0] != '0' && ft_strchr("xX", flags.conversion))
+            spaces_to_width -= 2;
+    }
+    return (spaces_to_width);
+}
+
 int     count_spaces_to_width(t_flag flags, int len, char *s)
 {
     int     spaces_to_width;
@@ -233,17 +261,10 @@ int     count_spaces_to_width(t_flag flags, int len, char *s)
             spaces_to_width -= len;
         if (s[0] != '-' && (flags.plus || (flags.space && !flags.plus)))
             spaces_to_width--;
-        if (flags.sharp)
-        {
-            if ((s[0] != '0' && ft_strchr("oO", flags.conversion)) ||\
-            ft_strchr("fF", flags.conversion))
-                spaces_to_width--;
-            if (s[0] != '0' && ft_strchr("xX", flags.conversion))
-                spaces_to_width -= 2;
-        }
+        spaces_to_width = spaces_to_width_sharp(flags, s, spaces_to_width);
         if (flags.conversion == 'p')
             spaces_to_width -= 2;
-        if (flags.zero && flags.precision == -1 && !flags.minus)
+        if (flags.zero && flags.precision < 0 && !flags.minus)
             spaces_to_width = 0;
         else if (flags.precision != -1 && ft_strchr("dDipoOuUxX", flags.conversion))
         {
@@ -299,7 +320,9 @@ int    print_arg_with_flags(t_flag flags, va_list arg)
         ft_putstr("0x");
         count += 2;
     }
-    if (flags.sharp && ft_strchr("oOxX", flags.conversion) && s[0] != '0')
+    if (flags.sharp && ((flags.precision < len && ft_strchr("oO", flags.conversion)) || \
+    ft_strchr("xX", flags.conversion)) && (s[0] != '0' || (s[0] == '0' && !flags.precision \
+    && ft_strchr("oO", flags.conversion))))
     {
         ft_putchar('0');
         if (ft_strchr("xX", flags.conversion))
@@ -309,7 +332,7 @@ int    print_arg_with_flags(t_flag flags, va_list arg)
         }
         count++;
     }
-    if (((ft_strchr("dDioOuUxX", flags.conversion) && flags.precision == -1) || \
+    if (((ft_strchr("dDioOuUxX", flags.conversion) && flags.precision < 0) || \
     ft_strchr("fF", flags.conversion)) && flags.zero && !flags.minus)
     {
         i = flags.width - len - count;
@@ -318,7 +341,7 @@ int    print_arg_with_flags(t_flag flags, va_list arg)
         while (i-- > 0)
             ft_putchar('0');
     }
-    if (ft_strchr("dDipoOuUxX", flags.conversion) && flags.precision != -1)
+    if (ft_strchr("dDipoOuUxX", flags.conversion) && flags.precision >= 0)
     {
         i = flags.precision - len;
         if (i > 0)
@@ -410,7 +433,7 @@ int     ft_printf(const char *restrict format, ...)
                     }
                 }
                 else if (is_size(format[j]))
-                    flags = fill_sizes((char *)format, &j, flags);
+                    flags = fill_sizes_l((char *)format, &j, flags);
                 else if (is_conversion(format[j]))
                 {
                     flags.conversion = format[j++];
@@ -431,11 +454,4 @@ int     ft_printf(const char *restrict format, ...)
     }
     va_end(arg);
     return (count);
-}
-
-int     main()
-{
-    printf("{%05.*d}", -15, 42);
-    ft_printf("{%05.*d}", -15, 42);
-    return (0);
 }

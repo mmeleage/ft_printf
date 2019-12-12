@@ -87,13 +87,7 @@ char    *get_fract_part_lf(int exp, char *bits)
             pow = divide(pow);
         }
         i = (exp < 0) ? 17 : (17 + exp);
-        while (bits[i])
-        {
-            if (bits[i] == '1')
-                fract_part = add(fill_zeroes(fract_part, pow), pow, 0);
-            pow = divide(pow);
-            i++;
-        }
+        fract_part = fract_part_f(bits, i, fract_part, pow);
     }
     return (fract_part);
 }
