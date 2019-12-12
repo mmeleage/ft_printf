@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_num_funcs.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/12 18:45:28 by mmeleage          #+#    #+#             */
+/*   Updated: 2019/12/12 18:45:29 by mmeleage         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "ft_printf.h"
 
 void	fill_num_funcs_d(t_func *funcs, t_flag flags, va_list arg)
@@ -69,4 +81,17 @@ void	fill_num_funcs_x(t_func *funcs, t_flag flags, va_list arg)
 		if (!flags.h && !flags.l)
 			(*funcs).s = ft_itoa_u(va_arg(arg, unsigned int), 16, flags.conversion);
 	}
+}
+
+char	*get_num(t_flag flags, t_func funcs)
+{
+	if (flags.h == 2)
+		return (funcs.hhs);
+	if (flags.h == 1)
+		return (funcs.hs);
+	if (flags.l == 2)
+		return (funcs.lls);
+	if (flags.l == 1)
+		return (funcs.ls);
+	return (funcs.s);
 }

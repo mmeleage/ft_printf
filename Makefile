@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmeleage <mmeleage@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/12/12 18:46:50 by mmeleage          #+#    #+#              #
+#    Updated: 2019/12/12 18:48:14 by mmeleage         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libftprintf.a
 LIB_NAME = libft/libft.a
 
@@ -19,6 +31,10 @@ SRCS = ft_printf_f.c \
 	f_multiply_divide.c \
 	fill_flags_sizes.c \
 	fill_num_funcs.c \
+	get_arg.c \
+	define_symbols.c \
+	print_flags.c \
+	spaces_to_width.c \
 	libft/ft_memset.c \
 	libft/ft_bzero.c \
 	libft/ft_memcpy.c \
